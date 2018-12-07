@@ -29,12 +29,8 @@ Select your `lambda.zip` as the "Function code" and make the handler "index.hand
 
 ![Function code](https://raw.githubusercontent.com/lambci/node-custom-lambda/master/img/function_code.png "Function code setup screenshot")
 
-Then click on Layers and choose "Add a layer", and "Provide a layer version
-ARN" and enter the following ARN:
 
-```
-arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:1
-```
+Then click [arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:1](https://console.aws.amazon.com/lambda/home?region=us-east-1#/connect/layer?layer=arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:1) and pick your function from the "Function name" auto-suggest.
 
 ![Add a layer](https://raw.githubusercontent.com/lambci/node-custom-lambda/master/img/layer.png "Add a layer screenshot")
 
