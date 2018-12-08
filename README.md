@@ -48,7 +48,7 @@ Then save your lambda and test it with a test event!
 | Node.js version | ARN |
 | --- | --- |
 | v10.14.1 | arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:1 |
-| v11.3.0 | arn:aws:lambda:us-east-1:553035198032:layer:nodejs11:1 |
+| v11.4.0 | arn:aws:lambda:us-east-1:553035198032:layer:nodejs11:3 |
 
 ## Things to be aware of
 
