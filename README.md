@@ -1,7 +1,7 @@
-# Node.js v10.x and 11.x for AWS Lambda
+# Node.js 10.x and 11.x for AWS Lambda
 
 A [custom runtime](https://aws.amazon.com/about-aws/whats-new/2018/11/aws-lambda-now-supports-custom-runtimes-and-layers/)
-for AWS Lambda to execute functions in Node.js v10.x or v11.x
+for AWS Lambda to execute functions in Node.js 10.x or 11.x
 
 ## Getting Started
 
@@ -43,17 +43,23 @@ Then save your lambda and test it with a test event!
 
 ![Test event output](https://raw.githubusercontent.com/lambci/node-custom-lambda/master/img/log.png "Test event output screenshot")
 
-## Version ARNs
+## Current Version ARNs
 
 | Node.js version | ARN |
 | --- | --- |
-| v10.14.1 | arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:1 |
-| v11.4.0 | arn:aws:lambda:us-east-1:553035198032:layer:nodejs11:3 |
+| 10.14.1 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:1` |
+| 11.4.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs11:3` |
+
+## Previous Version ARNs
+
+| Node.js version | ARN |
+| --- | --- |
+| 11.3.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs11:1` |
 
 ## Things to be aware of
 
 * This is a no-batteries-included runtime – you'll need to zip up any
   `node_modules` dependencies, including `aws-sdk` with your lambda function
-* Cold start overhead of ~270ms for Node.js v10.x and ~290ms for v11.x – this
+* Cold start overhead of ~270ms for Node.js 10.x and ~290ms for 11.x – this
   is due to Node.js' increasingly slow startup time,
   [but they're working on it!](https://github.com/nodejs/node/issues/17058)
