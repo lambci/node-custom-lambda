@@ -32,7 +32,7 @@ Select your `lambda.zip` as the "Function code" and make the handler "index.hand
 Then click on Layers and choose "Add a layer", and "Provide a layer version ARN" and enter the following ARN:
 
 ```
-arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:1
+arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:3
 ```
 
 Or [use this link](https://console.aws.amazon.com/lambda/home?region=us-east-1#/connect/layer?layer=arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:1) and pick your function from the "Function name" auto-suggest.
