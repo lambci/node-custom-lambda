@@ -47,8 +47,8 @@ Then save your lambda and test it with a test event!
 
 | Node.js version | ARN |
 | --- | --- |
-| 10.14.2 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:2` |
-| 11.4.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs11:3` |
+| 10.14.2 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:3` |
+| 11.4.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs11:4` |
 
 ## Previous Version ARNs
 
@@ -61,6 +61,11 @@ Then save your lambda and test it with a test event!
 
 * This is a no-batteries-included runtime – you'll need to zip up any
   `node_modules` dependencies, including `aws-sdk` with your lambda function
+* It does not monkeypatch `console.log`, `console.error`, etc
+  functions to add extra timestamps and request IDs to each line you log as the
+  official runtimes do. I believe this leads to fewer surprises and cleaner
+  logs that are easier to parse by various tools – but if you're
+  relying on this behaviour you'll need to add these fields yourself.
 * Cold start overhead of ~270ms for Node.js 10.x and ~290ms for 11.x – this
   is due to Node.js' increasingly slow startup time,
   [but they're working on it!](https://github.com/nodejs/node/issues/17058)
