@@ -2,7 +2,7 @@
 
 LAYER_NAME=nodejs11
 
-NODE_VERSION=11.6.0
+NODE_VERSION=11.7.0
 
 REGIONS='
 ap-northeast-1
