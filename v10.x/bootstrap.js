@@ -1,4 +1,5 @@
 const http = require('http')
+const { promisify } = require('util')
 
 const RUNTIME_PATH = '/2018-06-01/runtime'
 
@@ -148,7 +149,7 @@ function getHandler() {
     throw new Error(`Handler '${handlerName}' from '${modulePath}' is not a function`)
   }
 
-  return userHandler
+  return userHandler.length >= 3 ? promisify(userHandler) : userHandler
 }
 
 async function request(options) {
