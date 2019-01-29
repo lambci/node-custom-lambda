@@ -2,7 +2,7 @@
 
 LAYER_NAME=nodejs10
 
-NODE_VERSION=10.15.0
+NODE_VERSION=10.15.1
 
 REGIONS='
 ap-northeast-1
