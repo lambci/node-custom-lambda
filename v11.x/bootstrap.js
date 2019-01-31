@@ -48,7 +48,7 @@ async function processEvents(handler) {
   }
 }
 
-async function initError(err) {
+function initError(err) {
   return postError(`${RUNTIME_PATH}/init/error`, err)
 }
 
@@ -102,7 +102,7 @@ async function invokeResponse(result, context) {
   }
 }
 
-async function invokeError(err, context) {
+function invokeError(err, context) {
   return postError(`${RUNTIME_PATH}/invocation/${context.awsRequestId}/error`, err)
 }
 
@@ -152,7 +152,7 @@ function getHandler() {
   return userHandler.length >= 3 ? promisify(userHandler) : userHandler
 }
 
-async function request(options) {
+function request(options) {
   options.host = HOST
   options.port = PORT
 
