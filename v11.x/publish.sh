@@ -2,7 +2,7 @@
 
 LAYER_NAME=nodejs11
 
-NODE_VERSION=11.10.0
+NODE_VERSION=11.10.1
 
 REGIONS='
 ap-northeast-1
@@ -27,11 +27,5 @@ for region in $REGIONS; do
     --statement-id sid1 --action lambda:GetLayerVersion --principal '*' \
     --version-number $(aws lambda publish-layer-version --region $region --layer-name $LAYER_NAME \
       --zip-file fileb://layer.zip --cli-read-timeout 0 --cli-connect-timeout 0 \
-      --description "Node.js v${NODE_VERSION} custom runtime" --query Version --output text) &
+      --description "Node.js v${NODE_VERSION} custom runtime" --query Version --output text)
 done
-
-for job in $(jobs -p); do
-  wait $job
-done
-
-
