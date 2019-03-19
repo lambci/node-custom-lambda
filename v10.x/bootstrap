@@ -1,9 +1,0 @@
-#!/bin/dash -e
-
-export NODE_PATH=/opt/nodejs/node10/node_modules:/opt/nodejs/node_modules:/var/runtime/node_modules:/var/runtime:/var/task
-
-/opt/bin/node \
-  --expose-gc \
-  --max-semi-space-size=$((AWS_LAMBDA_FUNCTION_MEMORY_SIZE * 5 / 100)) \
-  --max-old-space-size=$((AWS_LAMBDA_FUNCTION_MEMORY_SIZE * 90 / 100)) \
-  /opt/bootstrap.js

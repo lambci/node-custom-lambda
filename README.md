@@ -32,10 +32,10 @@ Select your `lambda.zip` as the "Function code" and make the handler "index.hand
 Then click on Layers and choose "Add a layer", and "Provide a layer version ARN" and enter the following ARN:
 
 ```
-arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:8
+arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:9
 ```
 
-Or [use this link](https://console.aws.amazon.com/lambda/home?region=us-east-1#/connect/layer?layer=arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:8) and pick your function from the "Function name" auto-suggest.
+Or [use this link](https://console.aws.amazon.com/lambda/home?region=us-east-1#/connect/layer?layer=arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:9) and pick your function from the "Function name" auto-suggest.
 
 ![Add a layer](https://raw.githubusercontent.com/lambci/node-custom-lambda/master/img/layer.png "Add a layer screenshot")
 
@@ -47,7 +47,7 @@ Then save your lambda and test it with a test event!
 
 | Node.js version | ARN |
 | --- | --- |
-| 10.15.3 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:8` |
+| 10.15.3 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:9` |
 | 11.12.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs11:12` |
 
 ## Previous Version ARNs
@@ -78,6 +78,6 @@ Then save your lambda and test it with a test event!
   official runtimes do. I believe this leads to fewer surprises and cleaner
   logs that are easier to parse by various tools – but if you're
   relying on this behaviour you'll need to add these fields yourself.
-* Cold start overhead of ~270ms for Node.js 10.x and ~290ms for 11.x – this
+* Cold start overhead of ~240ms for Node.js 10.x and ~250ms for 11.x – this
   is due to Node.js' increasingly slow startup time,
   [but they're working on it!](https://github.com/nodejs/node/issues/17058)
