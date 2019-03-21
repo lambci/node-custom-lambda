@@ -131,15 +131,8 @@ function getHandler() {
 
   const [modulePath, handlerName] = appParts
 
-  let app
-  try {
-    app = require(LAMBDA_TASK_ROOT + '/' + modulePath)
-  } catch (e) {
-    if (e.code === 'MODULE_NOT_FOUND') {
-      throw new Error(`Unable to import module '${modulePath}'`)
-    }
-    throw e
-  }
+  // Let any errors here be thrown as-is to aid debugging
+  const app = require(LAMBDA_TASK_ROOT + '/' + modulePath)
 
   const userHandler = app[handlerName]
 

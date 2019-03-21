@@ -32,10 +32,10 @@ Select your `lambda.zip` as the "Function code" and make the handler "index.hand
 Then click on Layers and choose "Add a layer", and "Provide a layer version ARN" and enter the following ARN:
 
 ```
-arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:9
+arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:10
 ```
 
-Or [use this link](https://console.aws.amazon.com/lambda/home?region=us-east-1#/connect/layer?layer=arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:9) and pick your function from the "Function name" auto-suggest.
+Or [use this link](https://console.aws.amazon.com/lambda/home?region=us-east-1#/connect/layer?layer=arn:aws:lambda:us-east-1:553035198032:layer:nodejs10:10) and pick your function from the "Function name" auto-suggest.
 
 ![Add a layer](https://raw.githubusercontent.com/lambci/node-custom-lambda/master/img/layer.png "Add a layer screenshot")
 
@@ -47,8 +47,8 @@ Then save your lambda and test it with a test event!
 
 | Node.js version | ARN |
 | --- | --- |
-| 10.15.3 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:9` |
-| 11.12.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs11:12` |
+| 10.15.3 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:10` |
+| 11.12.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs11:13` |
 
 ## Previous Version ARNs
 
