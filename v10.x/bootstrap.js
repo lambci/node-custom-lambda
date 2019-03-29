@@ -15,6 +15,7 @@ const {
 } = process.env
 
 const [HOST, PORT] = AWS_LAMBDA_RUNTIME_API.split(':')
+process.env.AWS_EXECUTION_ENV = `AWS_Lambda_nodejs${process.versions.node}`
 
 start()
 
