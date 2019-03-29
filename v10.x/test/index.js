@@ -7,6 +7,7 @@ exports.handler = async(event, context) => {
   console.log(process.execArgv)
   console.log(process.argv)
   console.log(process.cwd())
+  console.log(process.env)
   console.log(event)
   console.log(context)
   console.log(context.getRemainingTimeInMillis())

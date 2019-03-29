@@ -7,6 +7,7 @@
 #define NODE_MAJOR "10"
 #endif
 
+#define AWS_EXECUTION_ENV "AWS_Lambda_nodejs" NODE_MAJOR "_lambci"
 #define NODE_PATH "/opt/nodejs/node" NODE_MAJOR "/node_modules:" \
                   "/opt/nodejs/node_modules:"                    \
                   "/var/runtime/node_modules:"                   \
@@ -16,6 +17,7 @@
 #define ARG_BUF_SIZE 32
 
 int main(void) {
+  setenv("AWS_EXECUTION_ENV", AWS_EXECUTION_ENV, true);
   setenv("NODE_PATH", NODE_PATH, true);
 
   const char *mem_size_str = getenv("AWS_LAMBDA_FUNCTION_MEMORY_SIZE");
