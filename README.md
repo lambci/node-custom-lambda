@@ -1,7 +1,7 @@
-# Node.js 10.x, 11.x and 12.x for AWS Lambda
+# Node.js 10.x and 12.x for AWS Lambda
 
 A [custom runtime](https://aws.amazon.com/about-aws/whats-new/2018/11/aws-lambda-now-supports-custom-runtimes-and-layers/)
-for AWS Lambda to execute functions in Node.js 10.x, 11.x or 12.x
+for AWS Lambda to execute functions in Node.js 10.x or 12.x
 
 ## Getting Started
 
@@ -48,13 +48,13 @@ Then save your lambda and test it with a test event!
 | Node.js version | ARN |
 | --- | --- |
 | 10.15.3 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:12` |
-| 11.14.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs11:17` |
 | 12.0.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:1` |
 
 ## Previous Version ARNs
 
 | Node.js version | ARN |
 | --- | --- |
+| 11.14.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs11:17` |
 | 11.13.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs11:16` |
 | 11.12.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs11:13` |
 | 11.11.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs11:11` |
@@ -81,6 +81,6 @@ Then save your lambda and test it with a test event!
   official runtimes do. I believe this leads to fewer surprises and cleaner
   logs that are easier to parse by various tools – but if you're
   relying on this behaviour you'll need to add these fields yourself.
-* Cold start overhead of ~240ms for Node.js 10.x and ~250ms for 11.x and 12.x – this
+* Cold start overhead of ~240ms for Node.js 10.x and ~260ms for 12.x – this
   is due to Node.js' increasingly slow startup time,
   [but they're working on it!](https://github.com/nodejs/node/issues/17058)
