@@ -4,23 +4,8 @@ LAYER_NAME=nodejs12
 
 NODE_VERSION=12.0.0
 
-REGIONS='
-us-east-1
-ap-northeast-1
-ap-northeast-2
-ap-south-1
-ap-southeast-1
-ap-southeast-2
-ca-central-1
-eu-central-1
-eu-west-1
-eu-west-2
-eu-west-3
-sa-east-1
-us-east-2
-us-west-1
-us-west-2
-'
+REGIONS="$(aws ssm get-parameters-by-path --path /aws/service/global-infrastructure/services/lambda/regions \
+  --query 'Parameters[].Value' --output text | tr '[:blank:]' '\n' | grep -v -e ^cn- -e ^us-gov- | sort -r)"
 
 for region in $REGIONS; do
   aws lambda add-layer-version-permission --region $region --layer-name $LAYER_NAME \
