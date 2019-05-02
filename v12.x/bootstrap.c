@@ -4,7 +4,8 @@
 #include <unistd.h>
 
 #ifndef NODE_MAJOR
-#define NODE_MAJOR "10"
+#error Must pass NODE_MAJOR to the compiler (eg "10")
+#define NODE_MAJOR ""
 #endif
 
 #define AWS_EXECUTION_ENV "AWS_Lambda_nodejs" NODE_MAJOR "_lambci"
