@@ -165,10 +165,11 @@ function request(options) {
   })
 }
 
-function toLambdaErr({ name, message, stack }) {
+function toLambdaErr(err) {
+  const { name, message, stack } = err
   return {
-    errorType: name,
-    errorMessage: message,
+    errorType: name || typeof err,
+    errorMessage: message || ('' + err),
     stackTrace: (stack || '').split('\n').slice(1),
   }
 }
