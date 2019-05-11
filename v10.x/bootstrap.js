@@ -95,7 +95,7 @@ async function invokeResponse(result, context) {
   const res = await request({
     method: 'POST',
     path: `${RUNTIME_PATH}/invocation/${context.awsRequestId}/response`,
-    body: JSON.stringify(result),
+    body: JSON.stringify(result === undefined ? null : result),
   })
   if (res.statusCode !== 202) {
     throw new Error(`Unexpected /invocation/response response: ${JSON.stringify(res)}`)
