@@ -2,6 +2,8 @@ const http = require('http')
 
 const RUNTIME_PATH = '/2018-06-01/runtime'
 
+const CALLBACK_USED = Symbol('CALLBACK_USED')
+
 const {
   AWS_LAMBDA_FUNCTION_NAME,
   AWS_LAMBDA_FUNCTION_VERSION,
@@ -25,6 +27,10 @@ async function start() {
     await initError(e)
     return process.exit(1)
   }
+  tryProcessEvents(handler)
+}
+
+async function tryProcessEvents(handler) {
   try {
     await processEvents(handler)
   } catch (e) {
@@ -36,6 +42,7 @@ async function start() {
 async function processEvents(handler) {
   while (true) {
     const { event, context } = await nextInvocation()
+
     let result
     try {
       result = await handler(event, context)
@@ -43,7 +50,13 @@ async function processEvents(handler) {
       await invokeError(e, context)
       continue
     }
+    const callbackUsed = context[CALLBACK_USED]
+
     await invokeResponse(result, context)
+
+    if (callbackUsed && context.callbackWaitsForEmptyEventLoop) {
+      return process.prependOnceListener('beforeExit', () => tryProcessEvents(handler))
+    }
   }
 }
 
@@ -75,6 +88,7 @@ async function nextInvocation() {
     functionVersion: AWS_LAMBDA_FUNCTION_VERSION,
     memoryLimitInMB: AWS_LAMBDA_FUNCTION_MEMORY_SIZE,
     getRemainingTimeInMillis: () => deadlineMs - Date.now(),
+    callbackWaitsForEmptyEventLoop: true,
   }
 
   if (res.headers['lambda-runtime-client-context']) {
@@ -146,9 +160,14 @@ function getHandler() {
     context.fail = reject
     context.done = (err, data) => err ? reject(err) : resolve(data)
 
+    const callback = (err, data) => {
+      context[CALLBACK_USED] = true
+      context.done(err, data)
+    }
+
     let result
     try {
-      result = userHandler(event, context, context.done)
+      result = userHandler(event, context, callback)
     } catch (e) {
       return reject(e)
     }

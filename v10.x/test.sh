@@ -16,3 +16,7 @@ docker run --rm -v "$PWD":/var/task -v "$PWD"/../layer:/opt lambci/lambda:provid
 docker run --rm -v "$PWD":/var/task -v "$PWD"/../layer:/opt lambci/lambda:provided index.handler3
 
 docker run --rm -v "$PWD":/var/task -v "$PWD"/../layer:/opt lambci/lambda:provided index.handler4
+
+docker run --rm -v "$PWD":/var/task -v "$PWD"/../layer:/opt lambci/lambda:provided index.handler5
+
+docker run --rm -v "$PWD":/var/task -v "$PWD"/../layer:/opt lambci/lambda:provided index.handler6
