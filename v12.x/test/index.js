@@ -14,3 +14,15 @@ exports.handler = async(event, context) => {
   console.log(aws4)
   return { some: 'obj!' }
 }
+
+exports.handler2 = (event, context) => {
+  setTimeout(context.done, 100, null, { some: 'obj!' })
+}
+
+exports.handler3 = (event, context) => {
+  setTimeout(context.succeed, 100, { some: 'obj!' })
+}
+
+exports.handler4 = (event, context) => {
+  setTimeout(context.fail, 100, new Error('This error should be logged'))
+}

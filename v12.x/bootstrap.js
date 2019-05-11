@@ -1,5 +1,4 @@
 const http = require('http')
-const { promisify } = require('util')
 
 const RUNTIME_PATH = '/2018-06-01/runtime'
 
@@ -142,7 +141,21 @@ function getHandler() {
     throw new Error(`Handler '${handlerName}' from '${modulePath}' is not a function`)
   }
 
-  return userHandler.length >= 3 ? promisify(userHandler) : userHandler
+  return (event, context) => new Promise((resolve, reject) => {
+    context.succeed = resolve
+    context.fail = reject
+    context.done = (err, data) => err ? reject(err) : resolve(data)
+
+    let result
+    try {
+      result = userHandler(event, context, context.done)
+    } catch (e) {
+      return reject(e)
+    }
+    if (result != null && typeof result.then === 'function') {
+      result.then(resolve, reject)
+    }
+  })
 }
 
 function request(options) {
