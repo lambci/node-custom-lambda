@@ -3,7 +3,7 @@
 A [custom runtime](https://aws.amazon.com/about-aws/whats-new/2018/11/aws-lambda-now-supports-custom-runtimes-and-layers/)
 for AWS Lambda to execute functions in Node.js 10.x or 12.x
 
-## NB: Recent changes to this runtime regarding legacy support
+### NB: Recent changes to this runtime regarding legacy support
 
 Starting from `nodejs10` layer version 13 and `nodejs12` layer version 4, this
 runtime is compatible with the legacy AWS runtimes. This means if you use
