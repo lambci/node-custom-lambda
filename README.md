@@ -3,6 +3,15 @@
 A [custom runtime](https://aws.amazon.com/about-aws/whats-new/2018/11/aws-lambda-now-supports-custom-runtimes-and-layers/)
 for AWS Lambda to execute functions in Node.js 10.x or 12.x
 
+## NB: Recent changes to this runtime regarding legacy support
+
+Starting from `nodejs10` layer version 13 and `nodejs12` layer version 4, this
+runtime is compatible with the legacy AWS runtimes. This means if you use
+the legacy callback syntax, you may need to set
+`context.callbackWaitsForEmptyEventLoop = false` if your Lambda is timing out.
+If you use `async` functions, return a `Promise`, or use `context.done()`, you
+shouldn't need to change anything.
+
 ## Getting Started
 
 Save as `index.js`:
