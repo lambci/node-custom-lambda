@@ -2,7 +2,7 @@
 
 LAYER_NAME=nodejs12
 
-NODE_VERSION=12.13.0
+NODE_VERSION=12.13.1
 
 REGIONS="$(aws ssm get-parameters-by-path --path /aws/service/global-infrastructure/services/lambda/regions \
   --query 'Parameters[].Value' --output text | tr '[:blank:]' '\n' | grep -v -e ^cn- -e ^us-gov- | sort -r)"

@@ -57,12 +57,13 @@ Then save your lambda and test it with a test event!
 | Node.js version | ARN |
 | --- | --- |
 | 10.17.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:18` |
-| 12.13.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:19` |
+| 12.13.1  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:20` |
 
 ## Previous Version ARNs
 
 | Node.js version | ARN |
 | --- | --- |
+| 12.13.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:19` |
 | 10.16.3 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:17` |
 | 12.12.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:18` |
 | 12.11.1  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:17` |
