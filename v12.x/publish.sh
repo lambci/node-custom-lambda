@@ -2,6 +2,9 @@
 
 . ./config.sh
 
+DESCRIPTION="Node.js v${NODE_VERSION} custom runtime"
+FILENAME=${LAYER_NAME}-${NODE_VERSION}.zip
+
 REGIONS="$(aws ssm get-parameters-by-path --path /aws/service/global-infrastructure/services/lambda/regions \
   --query 'Parameters[].Value' --output text | tr '[:blank:]' '\n' | grep -v -e ^cn- -e ^us-gov- | sort -r)"
 

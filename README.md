@@ -3,15 +3,6 @@
 A [custom runtime](https://aws.amazon.com/about-aws/whats-new/2018/11/aws-lambda-now-supports-custom-runtimes-and-layers/)
 for AWS Lambda to execute functions in Node.js 10.x or 12.x
 
-### NB: Recent changes to this runtime regarding legacy support
-
-Starting from `nodejs10` layer version 13 and `nodejs12` layer version 4, this
-runtime is compatible with the legacy AWS runtimes. This means if you use
-the legacy callback syntax, you may need to set
-`context.callbackWaitsForEmptyEventLoop = false` if your Lambda is timing out.
-If you use `async` functions, return a `Promise`, or use `context.done()`, you
-shouldn't need to change anything.
-
 ## Getting Started
 
 Save as `index.js`:
@@ -56,37 +47,38 @@ Then save your lambda and test it with a test event!
 
 | Node.js version | ARN |
 | --- | --- |
-| 10.17.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:18` |
-| 12.14.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:21` |
+| 10.18.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:19` |
+| 12.14.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:21` |
 
 ## Previous Version ARNs
 
 | Node.js version | ARN |
 | --- | --- |
-| 12.13.1  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:20` |
-| 12.13.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:19` |
+| 10.17.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:18` |
+| 12.13.1 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:20` |
+| 12.13.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:19` |
 | 10.16.3 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:17` |
-| 12.12.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:18` |
-| 12.11.1  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:17` |
-| 12.11.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:16` |
-| 12.10.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:15` |
-| 12.9.1  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:14` |
-| 12.9.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:13` |
-| 12.8.1  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:12` |
+| 12.12.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:18` |
+| 12.11.1 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:17` |
+| 12.11.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:16` |
+| 12.10.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:15` |
+| 12.9.1 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:14` |
+| 12.9.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:13` |
+| 12.8.1 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:12` |
 | 10.16.2 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:16` |
-| 12.8.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:11` |
-| 12.7.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:10` |
+| 12.8.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:11` |
+| 12.7.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:10` |
 | 10.16.1 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:15` |
 | 10.16.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:14` |
-| 12.6.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:9` |
-| 12.5.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:8` |
-| 12.4.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:7` |
-| 12.3.1  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:6` |
+| 12.6.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:9` |
+| 12.5.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:8` |
+| 12.4.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:7` |
+| 12.3.1 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:6` |
 | 10.15.3 | `arn:aws:lambda:<region>:553035198032:layer:nodejs10:13` |
-| 12.3.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:5` |
-| 12.2.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:4` |
-| 12.1.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:2` |
-| 12.0.0  | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:1` |
+| 12.3.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:5` |
+| 12.2.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:4` |
+| 12.1.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:2` |
+| 12.0.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs12:1` |
 | 11.14.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs11:17` |
 | 11.13.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs11:16` |
 | 11.12.0 | `arn:aws:lambda:<region>:553035198032:layer:nodejs11:13` |
