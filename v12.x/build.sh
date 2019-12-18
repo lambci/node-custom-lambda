@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export NODE_VERSION=12.13.1
+. ./config.sh
 
 docker build --build-arg NODE_VERSION -t node-provided-lambda-v12.x .
-docker run --rm node-provided-lambda-v12.x cat /tmp/node-v${NODE_VERSION}.zip > ./layer.zip
+docker run --rm -v "$PWD":/app node-provided-lambda-v12.x cp /tmp/layer.zip /app/
