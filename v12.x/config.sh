@@ -1,2 +1,2 @@
 export LAYER_NAME=nodejs12
-export NODE_VERSION=12.15.0
+export NODE_VERSION=12.16.0
