@@ -6,7 +6,7 @@ DESCRIPTION="Node.js v${NODE_VERSION} custom runtime"
 FILENAME=${LAYER_NAME}-${NODE_VERSION}.zip
 
 REGIONS="$(aws ssm get-parameters-by-path --path /aws/service/global-infrastructure/services/lambda/regions \
-  --query 'Parameters[].Value' --output text | tr '[:blank:]' '\n' | grep -v -e ^cn- -e ^us-gov- | sort -r)"
+  --query 'Parameters[].Value' --output text | tr '[:blank:]' '\n' | grep -v -e ^cn- -e ^us-gov- -e ^ap-northeast-3 | sort -r)"
 
 aws s3api put-object --bucket lambci --key layers/${FILENAME} --body layer.zip
 
