@@ -3,6 +3,11 @@ import aws4 from 'aws4'
 
 const interval = setInterval(console.log, 100, 'ping')
 
+const sleep = async (miliseconds) => await new Promise(res => setTimeout(res, miliseconds))
+
+// Test top-level await works
+await sleep(1000)
+
 export const handler = async (event, context) => {
   console.log(process.version)
   console.log(process.execPath)
