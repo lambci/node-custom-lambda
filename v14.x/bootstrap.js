@@ -146,7 +146,7 @@ async function getHandler() {
 
   // Let any errors here be thrown as-is to aid debugging
   const importPath = `${LAMBDA_TASK_ROOT}/${modulePath}.js`
-  const app = await new Promise((res, rej) => import(importPath).then(res).catch(rej))
+  const app = await import(importPath)
 
   const userHandler = app[handlerName]
 
