@@ -1,4 +1,7 @@
 import http from 'http'
+import { createRequire } from 'module'
+
+const require = createRequire(import.meta.url)
 
 const RUNTIME_PATH = '/2018-06-01/runtime'
 
@@ -13,6 +16,7 @@ const {
   LAMBDA_TASK_ROOT,
   _HANDLER,
   AWS_LAMBDA_RUNTIME_API,
+  NODE_MODULE_LOADER_TYPE = 'commonjs' // or 'module'
 } = process.env
 
 const [HOST, PORT] = AWS_LAMBDA_RUNTIME_API.split(':')
@@ -142,11 +146,21 @@ async function getHandler() {
     throw new Error(`Bad handler ${_HANDLER}`)
   }
 
+  if (NODE_MODULE_LOADER_TYPE !== 'commonjs' && NODE_MODULE_LOADER_TYPE !== 'module') {
+    throw new Error(
+      `Provided NODE_MODULE_LOADER_TYPE environment variable is invalid: ` +
+      `${NODE_MODULE_LOADER_TYPE}. Must be either 'commonjs' or 'module' ` +
+      `if specified.`
+    )
+  }
+
   const [modulePath, handlerName] = appParts
 
   // Let any errors here be thrown as-is to aid debugging
   const importPath = `${LAMBDA_TASK_ROOT}/${modulePath}.js`
-  const app = await import(importPath)
+  const app = NODE_MODULE_LOADER_TYPE === 'commonjs'
+    ? require(importPath)
+    : await import(importPath)
 
   const userHandler = app[handlerName]
 
