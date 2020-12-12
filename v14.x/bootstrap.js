@@ -79,7 +79,7 @@ async function nextInvocation() {
 
   const deadlineMs = +res.headers['lambda-runtime-deadline-ms']
 
-  let context = {
+  const context = {
     awsRequestId: res.headers['lambda-runtime-aws-request-id'],
     invokedFunctionArn: res.headers['lambda-runtime-invoked-function-arn'],
     logGroupName: AWS_LAMBDA_LOG_GROUP_NAME,
@@ -183,8 +183,8 @@ function request(options) {
   options.port = PORT
 
   return new Promise((resolve, reject) => {
-    let req = http.request(options, res => {
-      let bufs = []
+    const req = http.request(options, res => {
+      const bufs = []
       res.on('data', data => bufs.push(data))
       res.on('end', () => resolve({
         statusCode: res.statusCode,
