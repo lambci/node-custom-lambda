@@ -6,7 +6,7 @@ const interval = setInterval(console.log, 100, 'ping')
 const sleep = async (millisecond) => await new Promise(res => setTimeout(res, millisecond))
 
 // Test top-level await works
-await sleep(1000)
+await sleep(10)
 
 export const handler = async (event, context) => {
   console.log(process.version)
