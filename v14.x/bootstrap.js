@@ -1,8 +1,6 @@
 import http from 'http'
 import { createRequire } from 'module'
 
-const require = createRequire(import.meta.url)
-
 const RUNTIME_PATH = '/2018-06-01/runtime'
 
 const CALLBACK_USED = Symbol('CALLBACK_USED')
@@ -153,6 +151,11 @@ async function getHandler() {
       `if specified.`
     )
   }
+
+  // Only create require if the loader is set to commonjs
+  const require = NODE_MODULE_LOADER_TYPE === 'commonjs'
+    ? createRequire(import.meta.url)
+    : null
 
   const [modulePath, handlerName] = appParts
 
