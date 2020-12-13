@@ -32,6 +32,7 @@ int main(void) {
 
   execv("/opt/bin/node", (char *[]){
                              "node",
+                             "--experimental-loader=/opt/esm-loader-hook.mjs",
                              "--expose-gc",
                              max_semi_space_size,
                              max_old_space_size,

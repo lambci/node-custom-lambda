@@ -1,6 +1,6 @@
 FROM lambci/lambda-base:build
 
-COPY bootstrap.c bootstrap.js package.json /opt/
+COPY bootstrap.c bootstrap.js package.json esm-loader-hook.mjs /opt/
 
 ARG NODE_VERSION
 
