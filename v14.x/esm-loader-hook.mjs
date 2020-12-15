@@ -1,8 +1,7 @@
-const searchPaths = [
-    'file:///opt/nodejs/',
-    `file:///opt/node${getMajorVersion()}/`,
-    'file:///var/runtime/'
-]
+import {pathToFileURL} from "url"
+import path from "path"
+
+const searchPaths = process.env.NODE_PATH.split(path.delimiter).map(path => pathToFileURL(path).href)
 
 export async function resolve(specifier, context, defaultResolve) {
     try {
@@ -16,10 +15,4 @@ export async function resolve(specifier, context, defaultResolve) {
     }
 
     throw new Error(`Cannot find package '${specifier}': attempted to import from paths [${[context.parentURL, ...searchPaths].join(', ')}]`)
-}
-
-
-function getMajorVersion() {
-    let version = process.version
-    return version.slice(1, version.indexOf('.'))
 }

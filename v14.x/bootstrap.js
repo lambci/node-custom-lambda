@@ -1,5 +1,7 @@
 import http from 'http'
 import { createRequire } from 'module'
+import path from 'path'
+import { stat, readFile } from "fs/promises"
 
 const RUNTIME_PATH = '/2018-06-01/runtime'
 
@@ -14,7 +16,6 @@ const {
   LAMBDA_TASK_ROOT,
   _HANDLER,
   AWS_LAMBDA_RUNTIME_API,
-  NODE_MODULE_LOADER_TYPE = 'commonjs' // or 'module'
 } = process.env
 
 const [HOST, PORT] = AWS_LAMBDA_RUNTIME_API.split(':')
@@ -138,49 +139,34 @@ async function postError(path, err) {
 }
 
 async function getHandler() {
-  const appParts = _HANDLER.split('.')
-
-  if (appParts.length !== 2) {
+  const moduleParts = _HANDLER.split('.')
+  if (moduleParts.length !== 2) {
     throw new Error(`Bad handler ${_HANDLER}`)
   }
 
-  if (NODE_MODULE_LOADER_TYPE !== 'commonjs' && NODE_MODULE_LOADER_TYPE !== 'module') {
-    throw new Error(
-      `Provided NODE_MODULE_LOADER_TYPE environment variable is invalid: ` +
-      `${NODE_MODULE_LOADER_TYPE}. Must be either 'commonjs' or 'module' ` +
-      `if specified.`
-    )
-  }
-
-  // Only create require if the loader is set to commonjs
-  const require = NODE_MODULE_LOADER_TYPE === 'commonjs'
-    ? createRequire(import.meta.url)
-    : null
-
-  const [modulePath, handlerName] = appParts
+  const [modulePath, handlerName] = moduleParts
+  const {type: moduleLoaderType, ext} = await getModuleLoaderType(`${LAMBDA_TASK_ROOT}/${modulePath}`)
 
   // Let any errors here be thrown as-is to aid debugging
-  const importPath = `${LAMBDA_TASK_ROOT}/${modulePath}.js`
-  const app = NODE_MODULE_LOADER_TYPE === 'commonjs'
-    ? require(importPath)
-    : await import(importPath)
+  const importPath = `${LAMBDA_TASK_ROOT}/${modulePath}.${ext}`
+  const module = moduleLoaderType === 'module' ? await import(importPath) : createRequire(import.meta.url)(importPath)
 
-  const userHandler = app[handlerName]
+  const userHandler = module[handlerName]
 
-  if (userHandler == null) {
+  if (userHandler === undefined) {
     throw new Error(`Handler '${handlerName}' missing on module '${modulePath}'`)
   } else if (typeof userHandler !== 'function') {
     throw new Error(`Handler '${handlerName}' from '${modulePath}' is not a function`)
   }
 
   return (event, context) => new Promise((resolve, reject) => {
-    context.succeed = resolve
-    context.fail = reject
-    context.done = (err, data) => err ? reject(err) : resolve(data)
-
     const callback = (err, data) => {
       context[CALLBACK_USED] = true
-      context.done(err, data)
+      if(err) {
+        reject(err)
+      } else {
+        resolve(data)
+      }
     }
 
     let result
@@ -189,10 +175,68 @@ async function getHandler() {
     } catch (e) {
       return reject(e)
     }
-    if (result != null && typeof result.then === 'function') {
+    if (typeof result === 'object' && result != null && typeof result.then === 'function') {
       result.then(resolve, reject)
     }
   })
+}
+
+/**
+ * @param {string} modulePath path to executeable with no file extention
+ * @returns {Promise<{
+ *   type: 'commonjs' | 'module',
+ *   ext: 'mjs' | 'cjs' | 'js'
+ * }>} loader type and extention for loading module
+ */
+async function getModuleLoaderType(modulePath) {
+  //do all promises async so they dont have to wait on eachother
+  const [typ, mjsExist, cjsExist] = await Promise.all([
+    getPackageJsonType(modulePath),
+    fileExists(modulePath + '.mjs'),
+    fileExists(modulePath + '.cjs')
+  ])
+
+  //priority here is basically cjs -> mjs -> js
+  //pjson.type defaults to commonjs so always check if 'module' first
+  if(mjsExist && cjsExist) {
+    if(typ === 'module') { return {type: 'module', ext: 'mjs'} }
+    return {type: 'commonjs', ext: 'cjs'}
+  }
+  //only one of these exist if any
+  if(mjsExist) { return {type: 'module', ext: 'mjs'} }
+  if(cjsExist) { return {type: 'commonjs', ext: 'cjs'} }
+  //js is the only file, determine type based on pjson
+  if(typ === 'module') { return {type: 'module', ext: 'js'} }
+  return {type: 'commonjs', ext: 'js'}
+}
+
+async function fileExists(fullPath) {
+  try {
+    await stat(fullPath)
+    return true
+  } catch {
+    return false
+  }
+}
+
+/**
+ * @param {string} modulePath path to executeable with no file extention
+ * @returns {Promise<'module' | 'commonjs'>}
+ */
+async function getPackageJsonType(modulePath) {
+  //try reading pjson until we reach root. i.e. '/' !== path.dirname('/')
+  //there is probably a way to make it search in parallel, returning the first match in the hierarchy, but it seems more trouble than its worth
+  for(let dir = path.dirname(modulePath); dir !== path.dirname(dir); dir = path.dirname(dir)) {
+    try {
+      const {type} = JSON.parse(await readFile(dir + path.sep + 'package.json', 'utf-8'))
+      return type || 'commonjs'
+    } catch {
+      //do nothing
+    }
+  }
+
+  //if we reach root, return empty pjson
+  return 'commonjs'
 }
 
 function request(options) {
